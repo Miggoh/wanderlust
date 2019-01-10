@@ -48,8 +48,9 @@ const getForecast = async () => {
   } else {
       throw new Error('Request failed!');
   }
+}
   catch (error) {
-    console.log(error);
+    console.log(error.message);
   }
 };
 
