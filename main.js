@@ -17,6 +17,7 @@ const $weatherDivs = [$("#weather1"), $("#weather2"), $("#weather3"), $("#weathe
 const weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 // AJAX functions here:
+//Fetching venue info from Foursquare:
 const getVenues = async () => {
   const city = $input.val();
   const urlToFetch = `${url}${city}&limit=10&client_id=${clientId}&client_secret=${clientSecret}&v=20180101`;
@@ -34,7 +35,8 @@ const getVenues = async () => {
     console.log(error.message);
   }
 };
-  
+
+//Fetching forecast from APIXU:
 const getForecast = async () => {
   const urlToFetch = `${forecastUrl}${apiKey}&q=${$input.val()}&days=4&hour=11`;
   try {
@@ -42,11 +44,47 @@ const getForecast = async () => {
     if (response.ok) {
       const jsonResponse = await response.json();
       const days = jsonResponse.forecast.forecastday;
+      return days;
   } else {
       throw new Error('Request failed!');
   }
-}
-  catch(error) {
-    console.log(error.message);
+  catch (error) {
+    console.log(error);
   }
 };
+
+
+// Render functions
+//Venues:
+const renderVenues = (venues) => {
+  $venueDivs.forEach(($venue, index) => {
+    const venue = venues[index];
+    const venueIcon = venue.categories[0].icon;
+    const venueImgSrc = `${venueIcon.prefix}bg_64${venueIcon.suffix}`;
+    let venueContent = createVenueHTML(venue.name, venue.location, venueImgSrc);
+    $venue.append(venueContent);
+  });
+  $destination.append(`<h2>${venues[0].location.city}</h2>`);
+};
+
+//Forecast:
+const renderForecast = (days) => {
+  $weatherDivs.forEach(($day, index) => {
+    const currentDay = days[index];
+    let weatherContent = createWeatherHTML(currentDay);
+    $day.append(weatherContent);
+  });
+};
+
+//Clearing previous info and starting a new search:
+const executeSearch = () => {
+  $venueDivs.forEach(venue => venue.empty());
+  $weatherDivs.forEach(day => day.empty());
+  $destination.empty();
+  $container.css("visibility", "visible");
+  getVenues().then(venues => renderVenues(venues));
+  getForecast().then(forecast => renderForecast(forecast));
+  return false;
+};
+
+$submit.click(executeSearch)
