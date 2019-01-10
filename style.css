@@ -82,7 +82,7 @@ footer {
 
 .venue {
   width: 275px;
-  height: 500px;
+  height: 250px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
 }
 
@@ -127,7 +127,7 @@ footer {
 #venues {
   display: flex;
   justify-content: space-around;
-  min-height: 500px;
+  min-height: 300px;
 }
 
 #weather {

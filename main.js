@@ -62,6 +62,7 @@ const renderVenues = (venues) => {
     const venue = venues[index];
     const venueIcon = venue.categories[0].icon;
     const venueImgSrc = `${venueIcon.prefix}bg_64${venueIcon.suffix}`;
+//For createVenueHTML check helpers.js
     let venueContent = createVenueHTML(venue.name, venue.location, venueImgSrc);
     $venue.append(venueContent);
   });
@@ -72,6 +73,7 @@ const renderVenues = (venues) => {
 const renderForecast = (days) => {
   $weatherDivs.forEach(($day, index) => {
     const currentDay = days[index];
+//For createWeatherHTML check helpers.js
     let weatherContent = createWeatherHTML(currentDay);
     $day.append(weatherContent);
   });
@@ -88,4 +90,4 @@ const executeSearch = () => {
   return false;
 };
 
-$submit.click(executeSearch)
+$submit.click(executeSearch);
