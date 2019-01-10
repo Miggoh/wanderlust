@@ -17,10 +17,36 @@ const $weatherDivs = [$("#weather1"), $("#weather2"), $("#weather3"), $("#weathe
 const weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 // AJAX functions here:
-const getVenues = () => {
-
+const getVenues = async () => {
+  const city = $input.val();
+  const urlToFetch = `${url}${city}&limit=10&client_id=${clientId}&client_secret=${clientSecret}&v=20180101`;
+  try {
+    const response = await fetch(urlToFetch);
+    if (response.ok) {
+      const jsonResponse = await response.json();
+      const venues = jsonResponse.response.groups[0].items.map(item => item.venue);
+      return venues;
+  } else {
+      throw new Error('Request failed!');
+  }
 }
-
-const getForecast = () => {
-
+  catch(error) {
+    console.log(error.message);
+  }
+};
+  
+const getForecast = async () => {
+  const urlToFetch = `${forecastUrl}${apiKey}&q=${$input.val()}&days=4&hour=11`;
+  try {
+    const response = await fetch(urlToFetch);
+    if (response.ok) {
+      const jsonResponse = await response.json();
+      const days = jsonResponse.forecast.forecastday;
+  } else {
+      throw new Error('Request failed!');
+  }
 }
+  catch(error) {
+    console.log(error.message);
+  }
+};
