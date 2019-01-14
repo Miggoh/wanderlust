@@ -86,11 +86,6 @@ form {
   height: 100px;
 }
 
-footer {
-  display: flex;
-  align-items: center;
-  height: 50px;
-}
 
 .weather h2 {
   position: relative;
@@ -217,6 +212,8 @@ footer {
 footer {
   left: 0;
   bottom: 0;
+  height: 50px;
+  margin-top: 50px;
   display: flex;
   width: 100%;
   height: auto;
@@ -234,6 +231,24 @@ footer p {
   text-align: center;
   color: white;
   margin-top: 25px;
+}
+
+#attribution {
+	width: 296px;
+	height: 19px;
+	margin-left: 10px;
+	float: left;
+}
+
+#weathersource {
+  font-family: Work Sans;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.36;
+  text-align: left;
+  color: #4a4a4a;
+  padding-left: 5px;
+  text-decoration: none;
 }
 
 .icon {
